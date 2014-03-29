@@ -1,0 +1,64 @@
+
+<?php
+    $materialTypes = $this->Types;
+    $userType = $this->userType;
+    $courseName = $this->courseName;
+    $courseId = $this->courseId;
+    $baseUrl = $this->baseUrl();
+    
+    
+    if($userType == "user") {
+        ?>          
+            <link href="<?=$baseUrl?>/css/courseStyles.css" rel="stylesheet">
+            <div class="container">
+                
+                <div class="row clearfix">
+                    <div class="col-md-12 column" >
+                        <ul class="breadcrumb">
+                            <li><a href="<?=$baseUrl?>/category/list">Categories</a> <span class="divider">/</span></li>
+                            <li><a>Courses</a> <span class="divider">/</span></li>
+                            <li class="active"><?=$courseName?></li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <?php
+                    $inc = 0;
+                    
+                    foreach ($materialTypes as $type) {                      
+                        if($inc % 3 == 0) {
+                            echo '<div class="row clearfix" style="margin-left: 180px">';                  
+                        }
+                            ?>         
+                                <a href="<?=$baseUrl?>/course/getmaterial?courseId=<?=$courseId?>&mat=<?=$type[0]?>">
+                                   <div class="col-md-4 column">
+                                       <h3 class="text-center text-primary">
+                                           <?=$type[0]?>
+                                       </h3><img alt="140x140" src="<?=$baseUrl?>/imgs/folder.png" class="img-circle" />
+                                   </div>
+                                </a>    
+                            <?php
+                                if($inc % 3 == 2) {
+                                    echo "</div>";
+                                }
+                            $inc++;
+                    }
+                    
+                    if($inc % 3 > 0) {
+                        echo "</div>";
+                    }
+                    
+                    if(count($materialTypes)) {
+                        echo '<div class="row clearfix" style="margin-left: 180px">'; 
+                        echo 'No Materials';
+                        echo '</div>';
+                    }
+                    echo "</div>";
+    }
+    else if($userType == "admin") {
+       // Admin View
+    }
+    
+?>
+
+

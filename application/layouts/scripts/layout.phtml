@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <title>Pick Your Material</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="">
+
+        <link href="<?= $this->baseUrl() ?>/css/bootstrap.min.css" rel="stylesheet">
+        <link href="<?= $this->baseUrl() ?>/css/style.css" rel="stylesheet">
+
+        <link rel="shortcut icon" href="<?= $this->baseUrl() ?>/imgs/course.png">
+
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/js/jquery.min.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="<?= $this->baseUrl() ?>/js/scripts.js"></script>
+
+        <style>
+            body {
+                margin: 0px;
+            }
+            .header_container {
+                left:0; 
+
+                width:100%;
+
+                top:0; 
+                height: 81px;
+                background: rgb(235, 152, 86);
+            }
+            .header{
+                line-height:60px; 
+
+                margin:0 auto; 
+
+                width:940px; 
+
+                text-align:center; 
+
+            }  
+
+            .footer {
+
+               	line-height:60px; 
+                position:relative;
+                left:0px;
+                height:65px;
+                width:100%;
+                background:rgb(151,143,124);
+                border-top:solid 1px white;
+                bottom:0px;
+            }
+
+
+        </style>
+
+    </head>
+
+    <body>
+
+        <div class="header_container" style="padding-bottom: 8px">
+            <div class="header"><font style="float: left;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 30px;color: white;">Pick </font><font style="float : left;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 18px;margin-top: 2px">Your Materials</font></div>
+        </div>
+        <?php
+        $userType = "user";
+            if($userType == "user") {
+                ?>
+            <ul class="nav nav-tabs">
+                <li class="active"><a href="#">Home</a></li>
+                <li><a href="#">Profile</a></li>
+                <li class="disabled"><a href="#">Messages</a></li>
+                <li class="dropdown pull-right">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle">Settings<strong class="caret"></strong></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Request New Course</a></li>
+                        <li><li class="divider"></li>
+                        <li><a href="#">Sign Out</a></li>
+                    </ul>
+                </li>
+            </ul>
+        <?php
+            }
+        ?>
+
+        <?php echo $this->layout()->content; ?>
+
+        <br/><br/><br/>
+        <div class="footer"><font style="margin-left: 150px;float: left;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 30px;color: white;">Pick </font><font style="float : left;font-family: 'Helvetica Neue',Helvetica,Arial,sans-serif;font-size: 18px;margin-top: 2px">Your Materials</font></div>    </body>
+</body>
+</html>

@@ -1,0 +1,77 @@
+ <?php
+    $categories = $this->categories;
+ 
+ ?>
+
+    <div class="container" style="padding-bottom:100px;">
+        <div class="row clearfix">
+            <div class="col-md-12 column">
+                <ul class="breadcrumb">
+                    <li><a href="<?=$baseUrl?>/category/list">Categories</a> <span class="divider">/</span></li>
+                    <li class="active">List All</li>
+                </ul>
+                <div class="page-header">
+                    <h1>Category List <small>Pick Your Course</small></h1>
+                </div>
+                <div class="row clearfix">
+                    <div class="col-md-8 column">
+                        <div class="panel-group" id="panel-849400">
+                            
+                            <?php
+                                foreach ($categories as $category) {
+                            ?>
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <a class="panel-title" data-toggle="collapse" data-parent="#panel-849400" href="#panel-element-<?=$category['id']?>" onclick="showIconHandle(this);">
+                                        <img src="<?= $this->baseUrl()?>/imgs/folder.png" alt="folder" width="30" height="30"/>
+                                        <?=$category['name']?>
+                                    </a>
+                                </div>
+                                
+                                <div id="panel-element-<?=$category['id']?>" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <a class="panel-title" href="<?=$baseUrl?>/course/view?id=<?=$course['id']?>" style="font-size: 14px;color:black">
+                                            <img src="<?= $this->baseUrl()?>/imgs/course.png" alt="course" />
+                                             <?=$course['name']?>
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                            </div>
+                            <?php
+                                }
+                            ?>                           
+                        </div>
+                    </div>
+                    <div class="col-md-4 column">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+    var ar = document.getElementsByClassName("panel-title");
+
+    function showIconHandle(element) {
+
+        for(var i = 0 ; i < ar.length ; i++) {
+
+            var imgChild = ar[i].getElementsByTagName('img')[0];
+
+            if(element == ar[i]) {
+                    if(imgChild.width == '80') {
+                            imgChild.width = '30';
+                            imgChild.height='30';
+                    }
+                    else {
+                            imgChild.width = '80';
+                            imgChild.height='80';
+                    }
+            }
+            else {
+                    imgChild.width = '30';
+                    imgChild.height='30';
+            }
+        }
+    }
+    </script>
