@@ -1,4 +1,98 @@
-<br /><br />
-<div id="view-content">
-	<p>View script for controller <b>User</b> and script/action name <b>add</b></p>
+<br/><br/>
+<div class="container">
+    <div class="row clearfix">
+        <div class="col-md-12 column">
+            <div class="row clearfix">
+                <div class="col-md-4 column">
+                    <form role="form" method="post" action="<?=$this->baseUrl()?>/user/add" name="myform">
+                        <div class="form-group">
+                            <label for="fname">First Name</label><input type="email" class="form-control" id="fname" name="fname"/>
+                            <label for="lname">Last Name</label><input type="email" class="form-control" id="lname" name="lname"/>
+
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password</label><input type="password" class="form-control" id="password" name="password"/>
+                            <label for="rpassword">Retype Password</label><input type="password" class="form-control" id="rpassword" />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">E-Mail</label><input type="email" class="form-control" id="email" name="email" onkeyup="checkAvailability(this.value.trim())" onblur="checkAvailability(this.value.trim())"/>
+                        </div>
+                        <div class="form-group">
+                            <label for="gender">Gender</label><input type="radio" value="Male" /><input type="radio" value="Female" />
+                        </div>
+                        <div class="form-group">
+                            <label for="myfile">File input</label><input type="file" id="myfile" />
+                            <p class="help-block">
+                                Upload Your Picture
+                            </p>
+                        </div>
+                        <button type="button" class="btn btn-default" onclick="validate()">Register</button>
+                    </form>
+                </div>
+                <div class="col-md-4 column">
+                </div>
+                <div class="col-md-4 column">
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script>
+    var availableMail = false;
+    function validate() {
+        fname = document.getElementById("fname").value.trim();
+        lname = document.getElementById("lname").value.trim();
+        password = document.getElementById("password").value;
+        rpassword = document.getElementById("rpassword").value;
+        email = document.getElementById("email").value.trim();
+        gender = document.getElementById("gender").value;
+        errorMessage = "";
+        
+        if(!fname || !lname || !password || !rpassword || !email || !gender) {
+            errorMessage += "All Fields are required !! <br/>";
+        }
+        if(password !== rpassword) {
+            errorMessage += "Retyped password doesn't match !! <br/>";
+        }
+        if(!validateEmail(email)) {
+            errorMessage += "E-Mail is not valid !!";
+        }
+        
+        if(errorMessage === "") {
+            if(availableMail) {
+                document.myform.submit();
+            }
+            else {
+                errorMessage += "E-Mail is already in use !!";
+            }
+        }
+        
+        console.log(errorMessage);
+
+    }
+    
+    function checkAvailability(mail) {
+        var xhr = new XMLHttpRequest();
+        
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4) {
+                response = this.responseText;
+                
+                if(response === "valid") {
+                    availableMail = true;
+                }
+                else {
+                    availableMail = false;
+                }
+            }
+        };
+        
+        xhr.open("get","<?=$this->baseUrl()?>/mailValidator.php?mail="+mail);
+        xhr.send();
+    }
+    
+    function validateEmail(email) { 
+        var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(email);
+    } 
+</script>

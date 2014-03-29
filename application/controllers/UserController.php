@@ -5,7 +5,7 @@ class UserController extends Zend_Controller_Action
 
     public function init()
     {
-        /* Initialize action controller here */
+        $request = $this->getRequest();
     }
 
     public function indexAction()
@@ -15,7 +15,21 @@ class UserController extends Zend_Controller_Action
 
     public function addAction()
     {
-        // action body
+        $request = $this->getRequest();
+        
+        if($request->isPost()) {
+            $userData;
+            $userData['fname'] = $request->getParam("fname");
+            $userData['lname'] = $request->getParam("lname");
+            $userData['gender'] = 'male';   //$request->getParam("gender");
+            $userData['email'] = $request->getParam("email");
+            $userData['password'] = $request->getParam("password");
+            $userData['type'] = 'user';
+            $userData['pp'] = 'default';
+            
+            $userModel = new Application_Model_User();
+            $userModel->addUser($userData);
+        }
     }
 
     public function editAction()
@@ -80,6 +94,8 @@ class UserController extends Zend_Controller_Action
 
 
 }
+
+
 
 
 
