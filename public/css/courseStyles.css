@@ -1,0 +1,12 @@
+.col-md-4 {
+    text-align: center;
+    border-width: 2px;
+    border-style: solid;
+    border-radius: 12px;
+    border-color: rgb(233, 233, 233);
+    background-color: beige;
+    padding-bottom: 29px;   
+    width: 25.333333%;
+    margin-right: 17px;
+    margin-bottom: 17px;
+}

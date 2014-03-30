@@ -1,120 +1,160 @@
 <?php
-    $materials = $this->materials;
-    $materialType = $this->materialType;
-    $userType = $this->userType;
-    $courseName = $this->courseName;
-    $courseId = $this->courseId;
-    $baseUrl = $this->baseUrl();
-    
-    
-    if($userType == "user") {
-        ?>          
-            <link href="<?=$baseUrl?>/css/courseStyles.css" rel="stylesheet">
-            <div class="container">            
-                <div class="row clearfix">
-                    <div class="col-md-12 column" >
-                        <ul class="breadcrumb">
-                            <li><a href="<?=$baseUrl?>/category/list">Categories</a> <span class="divider">/</span></li>
-                            <li><a>Courses</a> <span class="divider">/</span></li>
-                            <li><a href="<?=$baseUrl?>/course/view?id=<?=$courseId?>"><?=$courseName?></a> <span class="divider">/</span></li>
-                            <li class="active"><?=$materialType?></li>
-                        </ul>
+$materials = $this->materials;
+$materialType = $this->materialType;
+$userType = $this->userType;
+$courseName = $this->courseName['name'];
+$courseId = $this->courseId;
+$baseUrl = $this->baseUrl();
+
+
+if ($userType == "user") {
+    ?>          
+    <link href="<?= $baseUrl ?>/css/courseStyles.css" rel="stylesheet">
+    <div class="container">            
+        <div class="row clearfix">
+            <div class="col-md-12 column" >
+                <ul class="breadcrumb">
+                    <li><a href="<?= $baseUrl ?>/category/list">Categories</a> <span class="divider">/</span></li>
+                    <li><a>Courses</a> <span class="divider">/</span></li>
+                    <li><a href="<?= $baseUrl ?>/course/view?id=<?= $courseId ?>"><?= $courseName ?></a> <span class="divider">/</span></li>
+                    <li class="active"><?= $materialType ?></li>
+                </ul>
+            </div>
+        </div>
+
+        <?php
+        $inc = 0;
+
+        foreach ($materials as $material) {
+            if ($inc % 3 == 0) {
+                echo '<div class="row clearfix" style="margin-left: 180px">';
+            }
+            ?>         
+            <a href="#modal-container-<?= $material['matId'] ?>" role="button" data-toggle="modal">
+                <div class="col-md-4 column">
+                    <h3 class="text-center text-primary">
+                        <?= $material['name'] ?>
+                    </h3><img alt="140x140" src="<?= $baseUrl ?>/imgs/pdf.png" class="img-circle" />
+                </div>
+            </a>   
+
+            <div class="modal fade" id="modal-container-<?= $material['matId'] ?>" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title" id="myModalLabel">
+                                <?= $courseName ?> - <?= $material['name'] ?>
+                            </h4>
+                        </div>
+                        <div class="modal-body">
+                            <a href="#" > Download </a> Or <a href="#" >View</a><br/>
+                            comments : 
+
+                            <div class="panel panel-default">
+                                <div class="panel-footer">
+                                    Comment - edit and delete if user's
+                                </div>
+                            </div>
+
+                            <div class="col-sm-8">
+                                <textarea  class="form-control" id="inputEmail3" ></textarea>
+                            </div>
+
+                            <input type="button" class="btn btn-primary" value="Comment"/>
+
+                        </div>                   
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        </div>
                     </div>
                 </div>
-                
-                <?php
-                    $inc = 0;
-                    
-                    foreach ($materials as $material) {                      
-                        if($inc % 3 == 0) {
-                            echo '<div class="row clearfix" style="margin-left: 180px">';                  
-                        }
-                            ?>         
-                                <a href="#modal-container-<?=$material['id']?>" role="button" class="btn" data-toggle="modal">
-                                   <div class="col-md-4 column">
-                                       <h3 class="text-center text-primary">
-                                           <?=$type[0]?>
-                                       </h3><img alt="140x140" src="<?=$baseUrl?>/imgs/folder.png" class="img-circle" />
-                                   </div>
-                                </a>   
-                
-                                <div class="modal fade" id="modal-container-<?=$material['id']?>" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                    <h4 class="modal-title" id="myModalLabel">
-                                                        <?=$courseName?> - <?=$material['name']?>
-                                                    </h4>
-                                            </div>
-                                            <div class="modal-body">
-                                                <a href="#" > Download </a> Or <a href="#" >View</a>
-                                                comments : <br/>
-                                                
-                                                <div class="panel panel-default">
-                                                    <div class="panel-footer">
-                                                       Comment - edit and delete if user's
-                                                      </div>
-                                                </div>
-                                                           
-                                                <div class="col-sm-3">
-                                                   <textarea  class="form-control" id="inputEmail3" ></textarea>
-                                                </div>
-                                                
-                                                <input type="button" class="btn btn-primary" value="Comment"/>
-                                                
-                                            </div>                   
-                                            <div class="modal-footer">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            <?php
-                                if($inc % 3 == 2) {
-                                    echo "</div>";
-                                }
-                            $inc++;
-                    }
-                    
-                    if($inc % 3 > 0) {
-                        echo "</div>";
-                    }
-                    ?>
-                        <a href="#modal-container-add" role="button" class="btn" data-toggle="modal">
-                            <div class="col-md-4 column">
-                                <h3 class="text-center text-primary">
-                                    Add New Material
-                                </h3><img alt="140x140" src="<?=$baseUrl?>/imgs/addtype.png" class="img-circle" />
-                            </div>
-                        </a> 
-                
-                        <div class="modal fade" id="modal-container-add" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <form action="<?=$baseUrl?>/material/add?courseId=<?=$courseId?>&matType=<?=$materialType?>" method="post" enctype="">
-                                        <div class="modal-header">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                                                <h4 class="modal-title" id="myModalLabel">
-                                                        <?= $courseName?> - New Material
-                                                </h4>
-                                        </div>
-                                        <div class="modal-body">
-                                            Material Name : <input type="text"/>
-                                        </div>
-                                        <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                                <input type="submit" class="btn btn-primary" value="Add Material"/>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
+            </div>
+            <?php
+            if ($inc % 3 == 2) {
+                echo "</div>";
+            }
+            $inc++;
+        }
+        if ($inc % 3 == 0) {
+            echo '<div class="row clearfix" style="margin-left: 180px">';
+        }
+        ?>
+        <a href="#modal-container-add" role="button" data-toggle="modal">
+            <div class="col-md-4 column">
+                <h3 class="text-center text-primary">
+                    Add New Material
+                </h3><img alt="140x140" src="<?= $baseUrl ?>/imgs/addmat.png" class="img-circle" style="opacity: 0.3;"/>
+            </div>
+        </a> 
+    </div>
+    <div class="modal fade" id="modal-container-add" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <form action="<?= $baseUrl ?>/material/add?courseId=<?= $courseId ?>&matType=<?= $materialType ?>" method="post" name="myform" onsubmit="return validate();" enctype="multipart/form-data">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                        <h4 class="modal-title" id="myModalLabel">
+                            <?= $courseName ?> - New Material
+                        </h4>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="fname">First Name</label><input type="text" class="form-control" id="mname" name="mname"/>
                         </div>
-                    </div>  
-                <?php
-    }
-    else if($userType == "admin") {
-       // Admin View
-    }
-    
+
+                        <div class="form-group">
+                            <label for="myfile">File input</label><input type="file" id="myfile" name="myfile"/>
+                            <p class="help-block">
+                                Upload Your Picture
+                            </p>
+                        </div>
+                        <input type="hidden" name="materialType" value="<?=$materialType?>"/>
+                        <input type="hidden" name="courseId" value="<?=$courseId?>"/>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <input type="submit" class="btn btn-primary" value="Add Material" />
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>  
+    <script>
+        function validate() {
+            var mname = document.myform.mname.value;
+            var filename = document.myform.myfile.value;
+            var errorMessage = "";
+            var a = filename.split(".");
+            var extension = a.pop();
+            var errorFlag = false;
+            
+            if (!mname || !filename) {
+                errorMessage = "All Fields are required !";
+                errorFlag = true;
+            }
+            
+            else if (a.length === 1 || (a[0] === "" && a.length === 2)) {
+                errorMessage = "Invalid Image !!";
+                errorFlag = true;
+            }
+            alert(extension);
+            else if(extension !== "png" || extension !== "jpg") {
+                errorMessage = "Invalid Image Type!!";
+                errorFlag = true;
+            }
+            
+            if(errorFlag) {
+                alert(errorMessage);
+                return false;
+            }
+            
+            return true; // feel free to tack .toLowerCase() here if you want
+        }
+    </script>
+    <?php
+} else if ($userType == "admin") {
+    // Admin View
+}
 ?>

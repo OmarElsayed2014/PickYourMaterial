@@ -30,7 +30,18 @@ class CategoryController extends Zend_Controller_Action
 
     public function listAction()
     {
-        // action body
+        $categoryForm = new Application_Model_Category();
+        $courseForm = new Application_Model_Course();
+        $data = array();
+        $categories = $categoryForm->getCategories();
+        
+        foreach ($categories as $category) {
+            $courses = $courseForm->getCoursesByCategory($category['categoryId']);
+            $categoryData = array($category,$courses);
+            array_push($data, $categoryData);
+        }
+        
+        $this->view->categoriesData = $data;
     }
 
     public function viewAction()

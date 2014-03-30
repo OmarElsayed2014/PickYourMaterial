@@ -35,12 +35,35 @@ class CourseController extends Zend_Controller_Action
 
     public function viewAction()
     {
-        // action body
+        $request = $this->getRequest();
+        $courseForm = new Application_Model_Course();
+        $materialForm = new Application_Model_Material();
+        
+        $courseId = $request->getParam("id");
+        if(isset($courseId)) {
+            $this->view->materialTypes = $materialForm->getMaterialTypes($courseId);
+            $this->view->courseName = $courseForm->getCourseName($courseId);
+            $this->view->courseId = $courseId;
+            $this->view->userType = "user";
+                
+        }
+        
     }
 
     public function getmaterialAction()
     {
-        // action body
+       $materialModel = new Application_Model_Material();
+       $courseModel = new Application_Model_Course();
+       $request = $this->getRequest();
+       
+       $courseId = $request->getParam("courseId");
+       $materialType = $request->getParam("mat");
+       
+       $this->view->materials = $materialModel->getMaterialsByType($courseId,$materialType);
+       $this->view->courseName = $courseModel->getCourseName($courseId);
+       $this->view->courseId = $courseId;
+       $this->view->userType = "user";
+       $this->view->materialType = $materialType;
     }
 
 

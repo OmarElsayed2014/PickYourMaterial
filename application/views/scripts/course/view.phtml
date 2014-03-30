@@ -1,8 +1,8 @@
 
 <?php
-    $materialTypes = $this->Types;
+    $materialTypes = $this->materialTypes;
     $userType = $this->userType;
-    $courseName = $this->courseName;
+    $courseName = $this->courseName['name'];
     $courseId = $this->courseId;
     $baseUrl = $this->baseUrl();
     
@@ -30,10 +30,10 @@
                             echo '<div class="row clearfix" style="margin-left: 180px">';                  
                         }
                             ?>         
-                                <a href="<?=$baseUrl?>/course/getmaterial?courseId=<?=$courseId?>&mat=<?=$type[0]?>">
+                                <a href="<?=$baseUrl?>/course/getmaterial?courseId=<?=$courseId?>&mat=<?=$type['materialType']?>">
                                    <div class="col-md-4 column">
                                        <h3 class="text-center text-primary">
-                                           <?=$type[0]?>
+                                           <?=$type['materialType']?>
                                        </h3><img alt="140x140" src="<?=$baseUrl?>/imgs/folder.png" class="img-circle" />
                                    </div>
                                 </a>    
@@ -47,8 +47,8 @@
                     if($inc % 3 > 0) {
                         echo "</div>";
                     }
-                    
-                    if(count($materialTypes)) {
+           
+                    if(count($materialTypes) == 0) {
                         echo '<div class="row clearfix" style="margin-left: 180px">'; 
                         echo 'No Materials';
                         echo '</div>';
